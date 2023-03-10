@@ -46,7 +46,12 @@ export const Sidebar = () => {
             <div className={classes.userList}>
                 {usersArray.map((doc) => {
                     return (
-                        <p key={doc.id}>{doc.displayName}</p>
+                        doc.uid !== user?.uid && 
+                        <UserItem 
+                            displayName={doc.displayName}
+                            photoURL={doc.photoURL}
+                            key={doc.id}
+                        />
                     )
                 })}
             </div>

@@ -1,15 +1,18 @@
-import { useUser } from '../../../../hooks/useUser';
+//styles
 import classes from './UserItem.module.css';
 
-export const UserItem = () => {
-    //getting the user
-    const user = useUser();
+interface PropsInterface {
+    displayName: string,
+    photoURL: string
+}
+
+export const UserItem = (props: PropsInterface) => {
 
     return (
         <div className={classes.item}>
-            <img src={user?.photoURL as string} className={classes.userImage}/>
+            <img src={props?.photoURL} className={classes.userImage}/>
             <span className={classes.username}>
-                {user?.displayName}
+                {props?.displayName}
             </span>
         </div>
     )
