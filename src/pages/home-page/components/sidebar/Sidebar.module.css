@@ -1,0 +1,49 @@
+.sidebar{
+    width: 25%;
+    height: 100%;
+
+    position: fixed;
+
+    overflow-y: scroll;
+
+    box-sizing: border-box;
+}
+.userInfo{
+    width: 25%;
+    height: 60px;
+
+    position: fixed;
+    z-index: 2;
+
+    background-color: rgb(79, 79, 79);
+    padding-left: 20px;
+
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+.userImage{
+    width: 35px;
+    height: 35px;
+
+    margin-right: 10px;
+
+    border-radius: 100px;
+}
+.username{
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+}
+.userList{
+    width: 100%;
+    min-height: 100vh;
+
+    padding-top: 75px;
+    box-sizing: border-box;
+
+    background-color: rgb(246, 246, 246);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
