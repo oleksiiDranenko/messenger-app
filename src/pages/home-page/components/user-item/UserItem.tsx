@@ -1,9 +1,11 @@
 //styles
 import classes from './UserItem.module.css';
 //redux
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from '../../../../store/slices/UserSelected';
-import { RootState } from '../../../../store/store';
+import { setRoomId } from '../../../../store/slices/RoomId';
+//hook
+import { useUser } from '../../../../hooks/useUser';
 
 interface PropsInterface {
     displayName: string,
@@ -12,8 +14,9 @@ interface PropsInterface {
 }
 
 export const UserItem = (props: PropsInterface) => {
-
-    const userSelected = useSelector((state: RootState) => state.UserSelected);
+    //user
+    const user = useUser();
+    //redux
     const dispatch = useDispatch();
 
     const selectUser = () => {
@@ -22,7 +25,14 @@ export const UserItem = (props: PropsInterface) => {
             photoURL: props.photoURL,
             uid: props.uid
         }))
-        console.log(userSelected)
+
+        //generating the room id
+        const sortedUsers = [user?.uid, props.uid].sort();
+        const roomId = sortedUsers.join('_');
+
+        dispatch(setRoomId({
+            roomId: roomId
+        }))
     }
 
     return (

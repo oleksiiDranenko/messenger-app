@@ -6,7 +6,7 @@ import { MessagesSection } from './components/messages-section/MessagesSection';
 
 export const HomePage = () => {
     return (
-        <div className={classes.page}>
+        <div className={classes.page}> 
             <Sidebar/>
             <MessagesSection/>
         </div>

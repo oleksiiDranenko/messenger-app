@@ -1,0 +1,92 @@
+.message{
+    width: 100%;
+    min-height: 60px;
+    margin-bottom: 15px;
+
+    display: flex;
+    justify-content: flex-start;
+
+    box-sizing: border-box;
+}
+
+.myMessage{
+    width: 100%;
+    min-height: 60px;
+    margin-bottom: 15px;
+
+    display: flex;
+    justify-content: flex-end;
+
+    box-sizing: border-box;
+}
+
+.messageBody{
+    min-width: 250px;
+    max-width: 500px;
+    min-height: 70px;
+
+    margin-left: 50px;
+
+    background-color: rgb(79, 79, 79);
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content:  center;
+
+    box-sizing: border-box;
+}
+
+.myMessageBody{
+    min-width: 250px;
+    max-width: 500px;
+    min-height: 70px;
+
+    margin-right: 50px;
+
+    background-color: rgb(60, 84, 148);
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content:  center;
+
+    box-sizing: border-box;
+}
+
+
+.messageValue{
+    min-height: 40px;
+    width: 100%;
+
+    padding: 15px;
+
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-family: sans-serif;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    box-sizing: border-box;
+}
+
+.messageDate{
+    height: 30px;
+    width: 100%;
+
+    padding: 0 15px;
+
+    color: rgb(200, 200, 200);
+    font-size: 14px;
+    font-family: sans-serif;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    box-sizing: border-box;
+}
