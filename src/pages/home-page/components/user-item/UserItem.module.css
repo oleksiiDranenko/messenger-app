@@ -1,6 +1,6 @@
 .item{
     width: 90%;
-    height: 80px;
+    height: 70px;
 
     background-color: rgba(79, 79, 79, 0.85);
     border-radius: 5px;
@@ -12,7 +12,10 @@
     align-items: center;
     box-sizing: border-box;
 
-    transition: background-color 0.2s ease-out;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 .userImage{
     width: 35px;
@@ -28,7 +31,4 @@
 }
 ::-webkit-scrollbar {
     display: none;
-}
-.item:hover{
-    background-color: rgba(79, 79, 79, 1);
 }

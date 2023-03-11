@@ -5,8 +5,10 @@ import { useUser } from '../../../../hooks/useUser';
 //components
 import { Link } from 'react-router-dom';
 import { UserItem } from '../user-item/UserItem';
+//firebase
 import { collection, getDocs, query } from 'firebase/firestore';
 import { database } from '../../../../config/firebase';
+//hooks
 import { useEffect, useState } from 'react';
 
 interface UserInterface {
@@ -51,6 +53,7 @@ export const Sidebar = () => {
                             displayName={doc.displayName}
                             photoURL={doc.photoURL}
                             key={doc.id}
+                            uid={doc.uid}
                         />
                     )
                 })}

@@ -1,0 +1,31 @@
+.section{
+    width: 75vw;
+    min-height: 100vh;
+
+    margin-left: 25vw;
+}
+.header{
+    width: 75vw;
+    height: 60px;
+
+    position: fixed;
+
+    background-color: rgba(79, 79, 79, 1);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userImage{
+    width: 35px;
+    height: 35px;
+
+    margin-right: 10px;
+
+    border-radius: 100px;
+}
+.username{
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+}
