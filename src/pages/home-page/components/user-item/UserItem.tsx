@@ -1,7 +1,8 @@
 //styles
 import classes from './UserItem.module.css';
 //redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../../store/store';
 import { setUser } from '../../../../store/slices/UserSelected';
 import { setRoomId } from '../../../../store/slices/RoomId';
 //hook
@@ -18,6 +19,7 @@ export const UserItem = (props: PropsInterface) => {
     const user = useUser();
     //redux
     const dispatch = useDispatch();
+    const userSelected = useSelector((state: RootState) => state.UserSelected);
 
     const selectUser = () => {
         dispatch(setUser({
@@ -36,7 +38,7 @@ export const UserItem = (props: PropsInterface) => {
     }
 
     return (
-        <div className={classes.item} onClick={selectUser}>
+        <div className={userSelected.uid === props.uid ? `${classes.item} ${classes.itemSelected}` : `${classes.item} ${classes.itemNotSelected}`} onClick={selectUser}>
             <img src={props?.photoURL} className={classes.userImage}/>
             <span className={classes.username}>
                 {props?.displayName}

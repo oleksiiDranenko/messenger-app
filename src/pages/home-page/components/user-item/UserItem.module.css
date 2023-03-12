@@ -2,7 +2,6 @@
     width: 90%;
     height: 70px;
 
-    background-color: rgba(79, 79, 79, 0.85);
     border-radius: 5px;
 
     padding-left: 20px;
@@ -17,6 +16,20 @@
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+
+.itemNotSelected{
+    background-color: rgba(79, 79, 79, 0.6);
+    transition: background-color 0.2s ease;
+}
+
+.itemNotSelected:hover{
+    background-color: rgba(79, 79, 79, 0.8);
+}
+
+.itemSelected{
+    background-color: rgba(79, 79, 79, 1);
+}
+
 .userImage{
     width: 35px;
     height: 35px;

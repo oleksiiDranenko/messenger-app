@@ -17,7 +17,7 @@ export const MessageItem = (props: PropsInterface) => {
         <div className={props.uid === user?.uid ? classes.myMessage : classes.message}>
             <div className={props.uid === user?.uid ? classes.myMessageBody : classes.messageBody}>
                 <div className={classes.messageValue}>{props.value}</div>
-                <div className={classes.messageDate}>{props.createdAt}</div>
+                <div className={classes.messageDate}>{props.createdAt.substring(11,16)}</div>
             </div>
         </div>
     )
