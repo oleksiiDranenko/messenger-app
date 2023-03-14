@@ -13,13 +13,16 @@ import { useUser } from '../../../../hooks/useUser';
 import { MessageItem } from '../message-item/MessageItem';
 //icon
 import arrowUpIcon from '../../../../icons/up-arrow.png';
+import replyIcon from '../../../../icons/reply-light.png';
+import removeIcon from '../../../../icons/remove.png';
 
 interface MessageInterface {
     roomId: string,
     userId: string,
     value: string,
     createdAt: string,
-    id?: string
+    id?: string,
+    replyTo?: string
 }
 
 export const MessagesSection = () => {
@@ -32,6 +35,8 @@ export const MessagesSection = () => {
     const roomId = useSelector((state: RootState) => state.RoomId);
     //input value state
     const [inputValue, setInputValue] = useState<string>('');
+    //reply state
+    const [reply, setReply] = useState<null | string>(null);
     //messages section ref
     const messageContainerRef = useRef<HTMLDivElement>(null);
 
@@ -54,6 +59,8 @@ export const MessagesSection = () => {
 
             //clear input value when swithcing to another chat
             setInputValue('');  
+            //clear reply when swithcing to another chat
+            setReply(null);
 
             return () => unsusribe();
         }
@@ -74,14 +81,28 @@ export const MessagesSection = () => {
     //add message
     const addMessage = async () => {
         if(roomId.roomId && user && inputValue.trim() !== ''){
-            const newMessage: MessageInterface = {
-                roomId: roomId.roomId,
-                userId: user?.uid,
-                value: inputValue,
-                createdAt: new Date().toISOString()
+            if(reply){
+                const newMessage: MessageInterface = {
+                    roomId: roomId.roomId,
+                    userId: user?.uid,
+                    value: inputValue,
+                    createdAt: new Date().toISOString(),
+                    replyTo: reply
+                }
+    
+                setReply(null);
+                
+                await addDoc(messagesCollection, newMessage);
+            } else {
+                const newMessage: MessageInterface = {
+                    roomId: roomId.roomId,
+                    userId: user?.uid,
+                    value: inputValue,
+                    createdAt: new Date().toISOString()
+                }
+    
+                await addDoc(messagesCollection, newMessage);
             }
-
-            await addDoc(messagesCollection, newMessage);
         }
     }
 
@@ -92,6 +113,15 @@ export const MessagesSection = () => {
         setInputValue('');
     }
 
+    //reply to message
+    const handleReply = (value: string) => {
+        setReply(value);
+    }
+
+    //cancel reply
+    const replyCancel = () => {
+        setReply(null);
+    }
 
     return (
         <div className={classes.section}>
@@ -110,23 +140,40 @@ export const MessagesSection = () => {
                                     uid={message.userId}
                                     value={message.value}
                                     createdAt={message.createdAt}
+                                    id={message.id as string}
                                     key={message.id}
+                                    handleReply={() => handleReply(message.value)}
+                                    reply={message.replyTo}
                                 />
                     })}
                 </div>
 
-                <form className={classes.inputForm} onSubmit={handleForm}>
-                        <input 
-                            type="text" 
-                            className={classes.input} 
-                            placeholder='Message'
-                            onChange={handleInputValue}
-                            value={inputValue}
-                        />
-                        <button className={classes.button}>
-                            <img src={arrowUpIcon} width='16px' height='16px'/>
-                        </button>
-                </form>
+                <div className={classes.inputDiv}>
+                    {reply ? 
+                        <div className={classes.replyDiv}>
+                            <img src={replyIcon} width='20px' height='20px'/>
+                            <span className={classes.replyValue}>
+                                {reply.length <= 30 ? reply : `${reply.substring(0, 30)} ...`}
+                            </span>
+                            <button onClick={replyCancel} className={classes.cancelReply}>
+                                <img src={removeIcon} width='20px' height='20px'/>
+                            </button>
+                        </div> 
+                    : null}
+
+                    <form className={classes.inputForm} onSubmit={handleForm}>
+                    <input 
+                        type="text" 
+                        className={classes.input} 
+                        placeholder='Message'
+                        onChange={handleInputValue}
+                        value={inputValue}
+                    />
+                    <button className={classes.button}>
+                        <img src={arrowUpIcon} width='16px' height='16px'/>
+                    </button>
+                    </form>
+                </div>
                 </>
             }
 

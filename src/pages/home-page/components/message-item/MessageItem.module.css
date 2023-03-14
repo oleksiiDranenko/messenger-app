@@ -53,9 +53,26 @@
     align-items: flex-start;
     justify-content:  center;
 
+    overflow: hidden;
     box-sizing: border-box;
 }
 
+.reply{
+    width: 100%;
+    min-height: 50px;
+
+    display: flex;
+    align-items: center;
+    padding: 15px;
+
+    background-color: rgba(255, 255, 255, 0.3);
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-family: sans-serif;
+    line-height: 30px;
+
+    box-sizing: border-box;
+}
 
 .messageValue{
     min-height: 30px;
@@ -90,4 +107,50 @@
     justify-content: flex-start;
 
     box-sizing: border-box;
+}
+
+.manageMessage{
+    width: 25px;
+    height: 25px;
+
+    border-radius: 100px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+
+    margin-left: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.manageMyMessage{
+    width: 25px;
+    height: 25px;
+
+    border-radius: 100px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+
+    margin-right: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.manageDivShown{
+    opacity: 100%;
+    transition: opacity 0.5s ease;
+
+    z-index: 1;
+
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.manageDivHidden{
+    opacity: 0%;
+    z-index: 1;
 }

@@ -38,7 +38,14 @@ export const UserItem = (props: PropsInterface) => {
     }
 
     return (
-        <div className={userSelected.uid === props.uid ? `${classes.item} ${classes.itemSelected}` : `${classes.item} ${classes.itemNotSelected}`} onClick={selectUser}>
+        <div 
+            className={
+                userSelected.uid === props.uid ? 
+                `${classes.item} ${classes.itemSelected}` 
+                : `${classes.item} ${classes.itemNotSelected}`
+            } 
+            onClick={selectUser}
+        >
             <img src={props?.photoURL} className={classes.userImage}/>
             <span className={classes.username}>
                 {props?.displayName}
