@@ -145,7 +145,7 @@ export const MessagesSection = () => {
 
     return (
         <div className={classes.section}>
-            {userSelected.uid && 
+            {userSelected.uid ? 
                 <>
                 <div className={classes.header}>
                     {
@@ -202,6 +202,10 @@ export const MessagesSection = () => {
                     </form>
                 </div>
                 </>
+            : 
+                <div className={classes.noChatDiv}>
+                    <span className={classes.noChatMessage}>No chats selected ...</span>
+                </div>
             }
 
         </div>
