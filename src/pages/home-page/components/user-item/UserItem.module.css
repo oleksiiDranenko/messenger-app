@@ -45,3 +45,21 @@
 ::-webkit-scrollbar {
     display: none;
 }
+
+@media (max-width: 1024px){
+    .item{
+        padding-left: 15px;
+    }
+    .itemNotSelected:hover{
+        background-color: rgba(79, 79, 79, 1);
+    }
+}
+
+@media (max-width: 768px){
+    .item{
+        padding-left: 20px;
+    }
+    .itemNotSelected{
+        background-color: rgba(79, 79, 79, 1);
+    }
+}

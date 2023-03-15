@@ -136,3 +136,61 @@
     border: none;
     border-radius: 5px;
 }
+
+.goBackButton{
+    width: 60px;
+    height: 60px;
+
+    position: absolute;
+    left: 0;
+
+    background: none;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .section{
+        width: 70vw;
+
+        margin-left: 30vw;
+    }
+    .messagesSection{
+        height: 100vh;
+    }
+    .header{
+        width: 70vw;
+    }
+    .replyDiv{
+        width: 70vw;
+    }
+    .inputForm{
+        width: 70vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .section{
+        width: 100vw;
+
+        margin-left: 0;
+    }
+    .messagesSection{
+        height: 100vh;
+    }
+    .header{
+        width: 100vw;
+    }
+    .replyDiv{
+        width: 100vw;
+    }
+    .inputForm{
+        width: 100vw;
+    }
+    .input{
+        width: 70%;
+    }
+}

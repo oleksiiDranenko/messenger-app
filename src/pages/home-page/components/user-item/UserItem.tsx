@@ -7,6 +7,10 @@ import { setUser } from '../../../../store/slices/UserSelected';
 import { setRoomId } from '../../../../store/slices/RoomId';
 //hook
 import { useUser } from '../../../../hooks/useUser';
+//react responsive
+import { useMediaQuery } from 'react-responsive';
+//react router
+import { useNavigate } from 'react-router';
 
 interface PropsInterface {
     displayName: string,
@@ -17,6 +21,10 @@ interface PropsInterface {
 export const UserItem = (props: PropsInterface) => {
     //user
     const user = useUser();
+    //screen width
+	const noSidebarScreenSize = useMediaQuery({query: '(max-width: 768px)'});
+    //navigation
+    const navigate = useNavigate();
     //redux
     const dispatch = useDispatch();
     const userSelected = useSelector((state: RootState) => state.UserSelected);
@@ -35,6 +43,10 @@ export const UserItem = (props: PropsInterface) => {
         dispatch(setRoomId({
             roomId: roomId
         }))
+
+        if(noSidebarScreenSize){
+            navigate('/messages')
+        }
     }
 
     return (

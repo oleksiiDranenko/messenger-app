@@ -9,12 +9,17 @@ import { database } from '../../../../config/firebase';
 //hook
 import { useEffect, useRef, useState } from 'react';
 import { useUser } from '../../../../hooks/useUser';
+//react responsive
+import { useMediaQuery } from 'react-responsive';
+//react router
+import { useNavigate } from 'react-router';
 //element
 import { MessageItem } from '../message-item/MessageItem';
 //icon
 import arrowUpIcon from '../../../../icons/up-arrow.png';
 import replyIcon from '../../../../icons/reply-light.png';
 import removeIcon from '../../../../icons/remove.png';
+import goBackIcon from '../../../../icons/back.png';
 
 interface MessageInterface {
     roomId: string,
@@ -27,7 +32,11 @@ interface MessageInterface {
 
 export const MessagesSection = () => {
     //logged in user
-    const user = useUser()
+    const user = useUser();
+    //screen width
+	const noSidebarScreenSize = useMediaQuery({query: '(max-width: 768px)'});
+    //navigation 
+    const navigate = useNavigate();
     //messages state
     const [messagesArray, setMessagesArray] = useState<MessageInterface[]>([]);
     //redux state
@@ -71,7 +80,13 @@ export const MessagesSection = () => {
         if (messageContainerRef.current) {
             messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight - messageContainerRef.current.clientHeight;
         }
-      }, [messagesArray]);
+    }, [messagesArray]);
+
+    useEffect(() => {
+        if(!userSelected.uid && noSidebarScreenSize){
+            navigate('/');
+        }
+    }, [])
     
     //input on change
     const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,11 +138,23 @@ export const MessagesSection = () => {
         setReply(null);
     }
 
+    //go to the previous page
+    const goBack = () => {
+        navigate(-1);
+    }
+
     return (
         <div className={classes.section}>
             {userSelected.uid && 
                 <>
                 <div className={classes.header}>
+                    {
+                        noSidebarScreenSize ? 
+                            <button className={classes.goBackButton} onClick={goBack}>
+                                <img src={goBackIcon} width='20px' height='20px'/>
+                            </button>
+                        : null
+                    }
                     <img src={userSelected?.photoURL} className={classes.userImage}/>
                     <span className={classes.username}>
                         {userSelected?.displayName}

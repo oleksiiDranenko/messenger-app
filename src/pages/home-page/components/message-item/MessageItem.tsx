@@ -6,6 +6,8 @@ import { useState } from 'react';
 //firebase
 import { collection, deleteDoc, doc } from 'firebase/firestore';
 import { database } from '../../../../config/firebase';
+//react responsive
+import { useMediaQuery } from 'react-responsive';
 //icons
 import deleteIcon from '../../../../icons/delete.png';
 import replyIcon from '../../../../icons/reply.png';
@@ -22,6 +24,9 @@ interface PropsInterface {
 export const MessageItem = (props: PropsInterface) => {
     //user
     const user = useUser()
+    //screen width
+	const noSidebarScreenSize = useMediaQuery({query: '(max-width: 768px)'})
+
     //hover state
     const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -35,8 +40,9 @@ export const MessageItem = (props: PropsInterface) => {
     return (
         <div 
             className={props.uid === user?.uid ? classes.myMessage : classes.message}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={() => !noSidebarScreenSize ? setIsHovered(true) : null}
+            onMouseLeave={() => !noSidebarScreenSize ? setIsHovered(false) : null}
+            onClick={() => noSidebarScreenSize ? setIsHovered(!isHovered) : null}
         >
             {props.uid === user?.uid ? 
                 <div className={isHovered ? classes.manageDivShown : classes.manageDivHidden}>
@@ -50,7 +56,12 @@ export const MessageItem = (props: PropsInterface) => {
             : null}
             <div className={props.uid === user?.uid ? classes.myMessageBody : classes.messageBody}>
                 {props.reply ? 
-                    <div className={classes.reply}>{props.reply}</div>
+                    <div className={classes.reply}>
+                        {props.reply.length <= 200 ?
+                            props.reply 
+                        : `${props.reply.substring(0, 200)} ...`
+                        }
+                    </div>
                 : null
                 }
                 <div className={classes.messageValue}>{props.value}</div>
