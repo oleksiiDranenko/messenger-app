@@ -142,7 +142,7 @@
 
     border-radius: 100px;
     border: none;
-    background-color: rgb(255, 255, 255);
+    background: none;
 
     margin-left: 15px;
 
@@ -157,7 +157,7 @@
 
     border-radius: 100px;
     border: none;
-    background-color: rgb(255, 255, 255);
+    background: none;
 
     margin-right: 15px;
 
