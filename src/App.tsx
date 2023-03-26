@@ -8,8 +8,9 @@ import { HomePage } from './pages/home-page/HomePage';
 import { ProfilePage } from './pages/profile-page/ProfilePage';
 import { MessagesSection } from './pages/home-page/components/messages-section/MessagesSection';
 import { Sidebar } from './pages/home-page/components/sidebar/Sidebar';
-//hooks
-import { useUser } from './hooks/useUser';
+//firebase
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './config/firebase';
 //redux
 import { store } from './store/store';
 import { Provider } from 'react-redux';
@@ -18,7 +19,7 @@ import { useMediaQuery } from 'react-responsive';
 
 function App() {
 	//getting the user
-    const user = useUser();
+    const [user, loading] = useAuthState(auth);
 	//screen width
 	const noSidebarScreenSize = useMediaQuery({query: '(max-width: 768px)'})
 
@@ -29,15 +30,16 @@ function App() {
 				{!noSidebarScreenSize ? 
 				<Routes>
 					<Route path='/' element={
-						user ? <HomePage/> 
-						: <SignUpPage/>}
+						user || loading ? <HomePage/> 
+						:  <SignUpPage/>
+					}
 					/>
 					<Route path='/profile' element={<ProfilePage/>}/>
 				</Routes>
 				: 
 				<Routes>
 					<Route path='/' element={
-						user ? <Sidebar/> 
+						user || loading ? <Sidebar/> 
 						: <SignUpPage/>}
 					/>
 					<Route path='/messages' element={<MessagesSection/>}/>

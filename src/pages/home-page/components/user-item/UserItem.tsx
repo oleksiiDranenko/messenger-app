@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../store/store';
 import { setUser } from '../../../../store/slices/UserSelected';
 import { setRoomId } from '../../../../store/slices/RoomId';
+import { setMessagesArray } from '../../../../store/slices/Messages';
 //hook
 import { useUser } from '../../../../hooks/useUser';
 //react responsive
@@ -30,6 +31,9 @@ export const UserItem = (props: PropsInterface) => {
     const userSelected = useSelector((state: RootState) => state.UserSelected);
 
     const selectUser = () => {
+        //empty a messages array when switching to another
+        dispatch(setMessagesArray([]))
+        
         dispatch(setUser({
             displayName: props.displayName,
             photoURL: props.photoURL,

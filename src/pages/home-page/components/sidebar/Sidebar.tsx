@@ -5,6 +5,7 @@ import { useUser } from '../../../../hooks/useUser';
 //components
 import { Link } from 'react-router-dom';
 import { UserItem } from '../user-item/UserItem';
+import { Loading } from '../loadingSidebar/LoadingSidebar';
 //firebase
 import { collection, getDocs, query } from 'firebase/firestore';
 import { database } from '../../../../config/firebase';
@@ -39,33 +40,37 @@ export const Sidebar = () => {
 
     return (
         <div className={classes.sidebar}>
-            <div className={classes.userInfo}>
-                <Link to='/profile'>
-                    <img src={user?.photoURL as string} className={classes.userImage}/>
-                </Link>
+            {!user ? <Loading/> : 
+            <>
+                <div className={classes.userInfo}>
+                    <Link to='/profile'>
+                        <img src={user?.photoURL as string} className={classes.userImage}/>
+                    </Link>
                 <span className={classes.username}>
                     {user?.displayName}
                 </span>
-            </div>
-            <div className={classes.userList}>
-                <UserItem 
-                    displayName='Global'
-                    photoURL={globalIcon}
-                    key={1}
-                    uid={'global'}
-                />
-                {usersArray.map((doc) => {
-                    return (
-                        doc.uid !== user?.uid && 
-                        <UserItem 
-                            displayName={doc.displayName}
-                            photoURL={doc.photoURL}
-                            key={doc.id}
-                            uid={doc.uid}
-                        />
-                    )
-                })}
-            </div>
+                </div>
+                <div className={classes.userList}>
+                    <UserItem 
+                        displayName='Global'
+                        photoURL={globalIcon}
+                        key={1}
+                        uid={'global'}
+                    />
+                    {usersArray.map((doc) => {
+                        return (
+                            doc.uid !== user?.uid && 
+                            <UserItem 
+                                displayName={doc.displayName}
+                                photoURL={doc.photoURL}
+                                key={doc.id}
+                                uid={doc.uid}
+                            />
+                        )
+                    })}
+                </div>
+            </>
+            }
         </div>
     )
 }

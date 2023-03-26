@@ -11,6 +11,8 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/slices/UserSelected';
 //icons
 import goBackIcon from '../../icons/back.png';
+//gif
+import loadingGif from '../../gifs/loading-dark.gif'
 
 export const ProfilePage = () => {
     //getting the user
@@ -32,6 +34,7 @@ export const ProfilePage = () => {
                     <img src={goBackIcon} width='20px' height='20px'/>
                 </button>
             </div>
+            {user ? 
             <div className={classes.userInfoDiv}>
                 <img src={user?.photoURL as string} className={classes.userPhoto}/>
                 <h1 className={classes.username}>{user?.displayName}</h1>
@@ -40,6 +43,8 @@ export const ProfilePage = () => {
                     Sign out
                 </button>
             </div>
+            : <img src={loadingGif} width='50px' height='50px'/>
+            }
         </div>
     )
 }

@@ -1,8 +1,9 @@
 //styles
 import classes from './MessagesSection.module.css';
 //redux
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../store/store';
+import { setMessagesArray } from '../../../../store/slices/Messages';
 //firebase
 import { addDoc, collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { database } from '../../../../config/firebase';
@@ -38,11 +39,11 @@ export const MessagesSection = () => {
 	const noSidebarScreenSize = useMediaQuery({query: '(max-width: 768px)'});
     //navigation 
     const navigate = useNavigate();
-    //messages state
-    const [messagesArray, setMessagesArray] = useState<MessageInterface[]>([]);
     //redux state
     const userSelected = useSelector((state: RootState) => state.UserSelected);
     const roomId = useSelector((state: RootState) => state.RoomId);
+    const messagesArray = useSelector((state: RootState) => state.Messages);
+    const dispatch = useDispatch();
     //input value state
     const [inputValue, setInputValue] = useState<string>('');
     //reply state
@@ -59,12 +60,12 @@ export const MessagesSection = () => {
             const queryMessages = query(messagesCollection, where('roomId', '==', roomId?.roomId), orderBy('createdAt', 'desc'));
             
             //on change in firebase
-            const unsusribe = onSnapshot(queryMessages, (snapshot) => {
+            const unsubsribe = onSnapshot(queryMessages, (snapshot) => {
                 let messages: MessageInterface[] = [];
                 snapshot.forEach((doc) => {
                     messages.push({...doc.data(), id: doc.id} as MessageInterface)
                 })
-                setMessagesArray(messages)
+                dispatch(setMessagesArray(messages))
             }); 
 
             //clear input value when swithcing to another chat
@@ -72,7 +73,7 @@ export const MessagesSection = () => {
             //clear reply when swithcing to another chat
             setReply(null);
 
-            return () => unsusribe();
+            return () => unsubsribe();
         }
     }, [roomId?.roomId]);
 
