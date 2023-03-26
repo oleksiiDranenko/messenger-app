@@ -10,6 +10,8 @@ import { collection, getDocs, query } from 'firebase/firestore';
 import { database } from '../../../../config/firebase';
 //hooks
 import { useEffect, useState } from 'react';
+//icons
+import globalIcon from '../../../../icons/global.png'
 
 interface UserInterface {
     displayName: string,
@@ -46,6 +48,12 @@ export const Sidebar = () => {
                 </span>
             </div>
             <div className={classes.userList}>
+                <UserItem 
+                    displayName='Global'
+                    photoURL={globalIcon}
+                    key={1}
+                    uid={'global'}
+                />
                 {usersArray.map((doc) => {
                     return (
                         doc.uid !== user?.uid && 

@@ -27,7 +27,8 @@ interface MessageInterface {
     value: string,
     createdAt: string,
     id?: string,
-    replyTo?: string
+    replyTo?: string,
+    photoURL?: string
 }
 
 export const MessagesSection = () => {
@@ -102,6 +103,7 @@ export const MessagesSection = () => {
                     userId: user?.uid,
                     value: inputValue,
                     createdAt: new Date().toISOString(),
+                    photoURL: user?.photoURL as string,
                     replyTo: reply
                 }
     
@@ -113,7 +115,8 @@ export const MessagesSection = () => {
                     roomId: roomId.roomId,
                     userId: user?.uid,
                     value: inputValue,
-                    createdAt: new Date().toISOString()
+                    createdAt: new Date().toISOString(),
+                    photoURL: user?.photoURL as string
                 }
     
                 await addDoc(messagesCollection, newMessage);
@@ -171,6 +174,7 @@ export const MessagesSection = () => {
                                     key={message.id}
                                     handleReply={() => handleReply(message.value)}
                                     reply={message.replyTo}
+                                    photoURL={message.photoURL}
                                 />
                     })}
                 </div>

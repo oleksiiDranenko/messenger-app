@@ -11,6 +11,8 @@ import { useMediaQuery } from 'react-responsive';
 //icons
 import deleteIcon from '../../../../icons/delete.png';
 import replyIcon from '../../../../icons/reply.png';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../store/store';
 
 interface PropsInterface {
     uid: string,
@@ -18,7 +20,8 @@ interface PropsInterface {
     id: string,
     createdAt: string,
     handleReply():void,
-    reply?: string
+    reply?: string,
+    photoURL?: string
 }
 
 export const MessageItem = (props: PropsInterface) => {
@@ -26,9 +29,10 @@ export const MessageItem = (props: PropsInterface) => {
     const user = useUser()
     //screen width
 	const noSidebarScreenSize = useMediaQuery({query: '(max-width: 768px)'})
-
     //hover state
     const [isHovered, setIsHovered] = useState<boolean>(false);
+    //room id
+    const roomSelected = useSelector((state: RootState) => state.RoomId)
 
     const messagesCollection = collection(database, 'messages');
 
@@ -54,7 +58,16 @@ export const MessageItem = (props: PropsInterface) => {
                     </button>
                 </div>
             : null}
-            <div className={props.uid === user?.uid ? classes.myMessageBody : classes.messageBody}>
+            {roomSelected.roomId === 'global' && props.uid !== user?.uid ?
+                <div>
+                    <img src={props.photoURL} className={classes.userPhoto}/>
+                </div>
+            : null}
+            <div 
+                className={props.uid === user?.uid ? classes.myMessageBody :
+                            props.uid !== user?.uid && roomSelected.roomId === 'global' ?
+                            classes.globalMessageBody : classes.messageBody}
+            >
                 {props.reply ? 
                     <div className={classes.reply}>
                         {props.reply.length <= 200 ?

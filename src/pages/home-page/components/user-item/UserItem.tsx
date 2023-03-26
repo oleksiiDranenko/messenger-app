@@ -36,13 +36,19 @@ export const UserItem = (props: PropsInterface) => {
             uid: props.uid
         }))
 
-        //generating the room id
-        const sortedUsers = [user?.uid, props.uid].sort();
-        const roomId = sortedUsers.join('_');
+        if(props.uid === 'global'){
+            dispatch(setRoomId({
+                roomId: 'global'
+            }))
+        } else if (user?.uid){
+            //generating the room id
+            const sortedUsers = [user?.uid, props.uid].sort();
+            const roomId = sortedUsers.join('_');
 
-        dispatch(setRoomId({
-            roomId: roomId
-        }))
+            dispatch(setRoomId({
+                roomId: roomId
+            }))
+        }
 
         if(noSidebarScreenSize){
             navigate('/messages')
